@@ -21,7 +21,7 @@ jobs:
 
       - name: Tag and push Docker image
         run: |
-         docker build -f ./Dockerfile -t deepthylalithatech/jendockube:1.0.0 .
+         docker build . --file Dockerfile -t deepthylalithatech/jendockube:1.0.0 .
          docker push deepthylalithatech/jendockube:1.0.0
 
          
