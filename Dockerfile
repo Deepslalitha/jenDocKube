@@ -47,30 +47,7 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
     mv ./kubectl ~/.local/bin/kubectl && \
     kubectl version --client
 
-# Install Terraform
-RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main" | tee /etc/apt/sources.list.d/hashicorp.list && \
-    apt update && \
-    apt install terraform -y
 
-
-# Install AWS CLI
-RUN apt-get update && apt-get install -y awscli
-
-# Install Azure CLI
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-
-# Install Google Cloud SDK
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg \
-    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
-    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
-    && apt-get update && apt-get install -y google-cloud-sdk
-
-# Install Trivy
-RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -  && \
-  echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a  /etc/apt/sources.list.d/trivy.list  && \
-  apt-get update  && \
-  apt-get install trivy
 
 # Setting the number of executors
 COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
