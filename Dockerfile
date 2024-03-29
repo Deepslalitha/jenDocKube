@@ -1,4 +1,3 @@
-
 # Use Jenkins base image
 FROM jenkins/jenkins:latest
 
